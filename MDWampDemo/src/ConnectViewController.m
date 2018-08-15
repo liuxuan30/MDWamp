@@ -18,14 +18,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    MDWampTransportWebSocket *transport = [[MDWampTransportWebSocket alloc] initWithServer:[NSURL URLWithString:self.hostField.text] protocolVersions:@[kMDWampProtocolWamp2json]];
-    
-    // Test Raw socket
-    //        MDWampTransportRawSocket *transport = [[MDWampTransportRawSocket alloc] initWithHost:@"127.0.0.1" port:9000];
-    //        [transport setSerialization:kMDWampSerializationJSON];
-    //
-    (AppDel).wampConnection = [[MDWamp alloc] initWithTransport:transport realm:self.realmField.text delegate:self];
-    
 	// Do any additional setup after loading the view, typically from a nib.
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -48,6 +40,10 @@
 }
 
 - (IBAction)connect:(id)sender {
+    MDWampTransportWebSocket *transport = [[MDWampTransportWebSocket alloc] initWithServer:[NSURL URLWithString:self.hostField.text] protocolVersions:@[kMDWampProtocolWamp2json]];
+
+    (AppDel).wampConnection = [[MDWamp alloc] initWithTransport:transport realm:self.realmField.text delegate:self];
+
     // CHECK empty fields
     if (!self.connected) {
         
